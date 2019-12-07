@@ -1,0 +1,23 @@
+{
+  "name": "chamberlain2007-adventofcode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/chamberlain2007/adventofcode.git"
+  },
+  "author": "Matthew FitzGerald-Chamberlain",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/chamberlain2007/adventofcode/issues"
+  },
+  "homepage": "https://github.com/chamberlain2007/adventofcode#readme"
+}

@@ -68,23 +68,53 @@ const parseWire = (definitions) => {
 };
 
 /**
- * Calculate the distance for the intersection
- * @param {string} intersection The coordinate of the intersection
+ * Find the distance to a given point on a wire
+ * @param {string} definitions The definition of the wire
+ * @param {number} targetX The target X position
+ * @param {number} targetY The target Y position
  * @return {number} The distance
  */
-const calculateDistance = (intersection) => {
-    const [x, y] = intersection.split(',');
-    const distance = Math.abs(x) + Math.abs(y);
+const findDistanceToPoint = (definitions, targetX, targetY) => {
+    let x = 0;
+    let y = 0;
+    const points = new Set();
+
+    let distance = 0;
+
+    const targetPoint = targetX+','+targetY;
+
+    definitions.split(',').some((definition) => {
+        const previousX = x;
+        const previousY = y;
+
+        [x, y] = addLinePoints(points, definition, x, y);
+
+        if (points.has(targetPoint)) {
+            if (previousX != targetX) {
+                distance += Math.abs(previousX - targetX);
+            } else {
+                distance += Math.abs(previousY - targetY);
+            }
+
+            return true;
+        } else {
+            const [, lineDistance] = parseDefinition(definition);
+            distance += lineDistance;
+            return false;
+        }
+    });
+
     return distance;
 };
 
 /**
- * Calculate the distance of the intersection of two wires
+ * Calculate the minimum number of steps to the intersection between the
+ * two wires
  * @param {string} wire1Definition The definition of the first wire
  * @param {string} wire2Definition The definition of the second wire
- * @return {number} The closest distance of the intersection
+ * @return {number} The minimum number of steps to the intersection
  */
-const calculateClosestDistance = (wire1Definition, wire2Definition) => {
+const calculateMinmumNumberOfSteps = (wire1Definition, wire2Definition) => {
     const wire1Points = parseWire(wire1Definition);
     const wire2Points = parseWire(wire2Definition);
 
@@ -92,23 +122,28 @@ const calculateClosestDistance = (wire1Definition, wire2Definition) => {
         .from(wire1Points)
         .filter((value) => wire2Points.has(value));
 
-    const closestDistance = intersections
-        .map(calculateDistance)
-        .sort((x, y) => x - y)[0];
+    const closestDistance = intersections.map((intersection) => {
+        const [x, y] = intersection.split(',');
+        const distance1 = findDistanceToPoint(wire1Definition, x, y);
+        const distance2 = findDistanceToPoint(wire2Definition, x, y);
+
+        return distance1 + distance2;
+    }).sort((x, y) => x - y)[0];
 
     return closestDistance;
 };
 
-module.exports = calculateClosestDistance;
+module.exports = calculateMinmumNumberOfSteps;
 
 if (require.main === module) {
     const fs = require('fs');
+    const path = require('path');
 
-    const input = fs.readFileSync('day3input.txt', 'utf8');
+    const input = fs.readFileSync(path.join(__dirname, '/day3input.txt'), 'utf8');
 
     const [wire1, wire2] = input.split('\n');
 
-    const closestDistance = calculateClosestDistance(wire1, wire2);
+    const minmumNumberOfSteps = calculateMinmumNumberOfSteps(wire1, wire2);
 
-    console.log(closestDistance);
+    console.log(minmumNumberOfSteps);
 }

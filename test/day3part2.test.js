@@ -1,5 +1,5 @@
 const assert = require('assert');
-const day3part2 = require('../day3part2');
+const day3part2 = require('../solutions/day3/part2');
 
 describe('Day 3 Part 2', () => {
     it('Should generate correct values for 610 for combination 2', () => {

@@ -1,4 +1,4 @@
-const generatePermutations = require('./utils/generate-permutations');
+const generatePermutations = require('../../utils/generate-permutations');
 
 /**
  * Represents an opCode with immediate mode settings

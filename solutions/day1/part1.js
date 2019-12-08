@@ -9,8 +9,9 @@ module.exports = calculateFuel;
 
 if (require.main === module) {
     const fs = require('fs');
+    const path = require('path');
 
-    const input = fs.readFileSync('day1input.txt', 'utf8');
+    const input = fs.readFileSync(path.join(__dirname, '/day1input.txt'), 'utf8');
 
     const sum = input
         .split('\n')

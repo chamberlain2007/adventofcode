@@ -73,8 +73,9 @@ module.exports = parseArray;
 
 if (require.main === module) {
     const fs = require('fs');
+    const path = require('path');
 
-    const input = fs.readFileSync('day2input.txt', 'utf8');
+    const input = fs.readFileSync(path.join(__dirname, '/day2input.txt'), 'utf8');
 
     const testArray = [...input
         .split(',')

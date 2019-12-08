@@ -1,4 +1,4 @@
-const getDigits = require('./utils/get-digits');
+const getDigits = require('../../utils/get-digits');
 
 /**
  * Validates whether all of the digits are greater than the previous

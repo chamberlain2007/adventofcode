@@ -1,5 +1,5 @@
 const readlineSync = require('readline-sync');
-const generatePermutations = require('./utils/generate-permutations');
+const generatePermutations = require('../../utils/generate-permutations');
 
 const Computer = class {
     constructor(stdin, stdout, instructionList) {

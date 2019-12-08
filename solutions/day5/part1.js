@@ -15,7 +15,7 @@ const handleOperation = (array, index, immediateModeSettings, operation) => {
         }
         parameters.push(operand);
     }
-    const result = operation.apply(null, parameters);
+    const result = operation(...parameters);
     if (result === undefined) {
         return;
     }

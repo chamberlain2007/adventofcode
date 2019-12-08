@@ -1,4 +1,5 @@
 const readlineSync = require('readline-sync');
+const generatePermutations = require('./utils/generate-permutations');
 
 const Computer = class {
     constructor(stdin, stdout, instructionList) {
@@ -162,31 +163,6 @@ const AmplifierCircuit = class {
         }
         return currentValue;
     }
-};
-
-const generatePermutations = (options, k) => {
-    if (k === 1) {
-        return [[...options]];
-    }
-
-    if (k === undefined) {
-        k = options.length;
-    }
-
-    let results = generatePermutations(options, k - 1);
-
-    for (let i = 0; i < k - 1; i++) {
-        if (k % 2 === 0) {
-            [options[i], options[k-1]] = [options[k-1], options[i]];
-        }
-        else {
-            [options[0], options[k-1]] = [options[k-1], options[0]];
-        }
-
-        results = results.concat(generatePermutations(options, k - 1));
-    }
-
-    return results;
 };
 
 let maxThrustOutput = 0;

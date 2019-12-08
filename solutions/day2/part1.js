@@ -72,15 +72,8 @@ const parseArray = (array) => {
 module.exports = parseArray;
 
 if (require.main === module) {
-    const fs = require('fs');
-    const path = require('path');
-
-    const input = fs.readFileSync(path.join(__dirname, '/day2input.txt'), 'utf8');
-
-    const testArray = [...input
-        .split(',')
-        .map((val) => parseInt(val))
-        .filter((val) => !isNaN(val))];
+    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const testArray = readFileToArray('day2input.txt', ',');
 
     testArray[1] = 12;
     testArray[2] = 2;

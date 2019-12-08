@@ -1,14 +1,7 @@
 const Image = require('./image');
 
-const fs = require('fs');
-const path = require('path');
-
-const input = fs.readFileSync(path.join(__dirname, '/day8input.txt'), 'utf8');
-
-const data = input
-    .split('')
-    .map((val) => parseInt(val))
-    .filter((val) => !isNaN(val));
+const readFileToArray = require('../../utils/read-file').readFileToArray;
+const data = readFileToArray('day8input.txt', '');
 
 const width = 25;
 const height = 6;

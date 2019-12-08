@@ -102,10 +102,8 @@ const calculateClosestDistance = (wire1Definition, wire2Definition) => {
 module.exports = calculateClosestDistance;
 
 if (require.main === module) {
-    const fs = require('fs');
-    const path = require('path');
-
-    const input = fs.readFileSync(path.join(__dirname, '/day3input.txt'), 'utf8');
+    const readFile = require('../../utils/read-file').readFile;
+    const input = readFile('day3input.txt');
 
     const [wire1, wire2] = input.split('\n');
 

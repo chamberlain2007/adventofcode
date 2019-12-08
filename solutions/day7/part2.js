@@ -316,15 +316,8 @@ const AmplifierCircuit = class {
     }
 };
 
-const fs = require('fs');
-const path = require('path');
-
-const input = fs.readFileSync(path.join(__dirname, '/amplifiercircuitinput.txt'), 'utf8');
-
-const instructionList = input
-    .split(',')
-    .map((val) => parseInt(val))
-    .filter((val) => !isNaN(val));
+const readFileToArray = require('../../utils/read-file').readFileToArray;
+const instructionList = readFileToArray('amplifiercircuitinput.txt', ',');
 
 let maxThrustOutput = 0;
 let bestPhaseSettings = [];

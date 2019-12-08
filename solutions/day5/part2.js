@@ -154,7 +154,7 @@ const parseInstructionList = (instructionList) => {
 };
 
 if (require.main === module) {
-    const readFile = require('../../utils/read-file');
-    const input = readFile('day5input.txt', ',');
+    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const input = readFileToArray('day5input.txt', ',');
     parseInstructionList(input);
 }

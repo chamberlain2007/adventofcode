@@ -1,12 +1,9 @@
-const fs = require('fs');
-const path = require('path');
 const OrbitMap = require('./orbit-map');
 
-const input = fs.readFileSync(path.join(__dirname, '/day6input.txt'), 'utf8');
+const readFileToArrayRaw = require('../../utils/read-file').readFileToArrayRaw;
+const valuesToParse = readFileToArrayRaw('day6input.txt', '\n');
 
 const orbitMap = new OrbitMap();
-
-const valuesToParse = [...input.split('\n').filter((x) => !!x)];
 
 orbitMap.addOrbits(valuesToParse);
 

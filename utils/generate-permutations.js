@@ -5,6 +5,14 @@
  * @returns {number[][]} The list of permutations
  */
 const generatePermutations = (options, k) => {
+    if (options.length === 0) {
+        return [];
+    }
+
+    if (options.length === 1) {
+        return [[...options]];
+    }
+
     if (k === 1) {
         return [[...options]];
     }

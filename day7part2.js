@@ -3,7 +3,7 @@
  * @param {number} opCode The opCode
  * @param {number[]} immediateModeSettings The immediate mode settings
  */
-const ParsedOpCode = class {
+const OpCodeParsingResult = class {
     constructor(opCode, immediateModeSettings) {
         this.opCode = opCode;
         this.immediateModeSettings = immediateModeSettings;
@@ -181,16 +181,16 @@ const Computer = class {
     /**
      * Parse an instruction into its opCode and list of immediate mode settings
      * @param {number} instruction The instruction to parse
-     * @returns {ParsedOpCode} The opCode and list of immediate mode settings
+     * @returns {OpCodeParsingResult} The opCode and list of immediate mode settings
      */
     parseOpCode(instruction) {
         if (instruction < 100) {
-            return new ParsedOpCode(instruction, []);
+            return new OpCodeParsingResult(instruction, []);
         }
         const instructionStr = instruction.toString();
         const opCode = parseInt(instructionStr.slice(-2));
         const immediateModeSettings = instructionStr.substr(0, instructionStr.length - 2).split('').reverse().map(x => x === '1');
-        return new ParsedOpCode(opCode, immediateModeSettings);
+        return new OpCodeParsingResult(opCode, immediateModeSettings);
     }
 
     /**

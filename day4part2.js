@@ -1,13 +1,29 @@
 /**
+ * Get the digits of a number
+ * @param {number} number The number to get the digits for
+ * @return {number[]} The digits
+ */
+const getDigits = (number) => {
+    const digits = [];
+    while (number > 0) {
+        const digit = number % 10;
+        digits.push(digit);
+        number -= digit;
+        number /= 10;
+    }
+    return digits.reverse();
+};
+
+/**
  * Validates whether all of the digits are greater than the previous
- * @param {number} number The number to check
+ * @param {digits} digits The digits to check
  * @return {boolean} True if all of the digits are valid
  */
-const validateAscendingDigits = (number) => {
+const validateAscendingDigits = (digits) => {
     let previous = -1;
     let isValid = true;
 
-    number.toString().split('').map((x) => parseInt(x)).forEach((current) => {
+    digits.forEach((current) => {
         if (current < previous) {
             isValid = false;
         }
@@ -19,15 +35,15 @@ const validateAscendingDigits = (number) => {
 
 /**
  * Validate whether there is at least one set of duplicate digits
- * @param {number} number The number to check
+ * @param {digits} digits The digits to check
  * @return {boolean} True if there is a set of duplicate digits
  */
-const validateHasAdjacentDigits = (number) => {
+const validateHasAdjacentDigits = (digits) => {
     let previous = -1;
     const chunks = [];
     let activeChunk = [];
 
-    number.toString().split('').map((x) => parseInt(x)).forEach((current) => {
+    digits.forEach((current) => {
         if (previous === -1 || current === previous) {
             activeChunk.push(current);
         } else {
@@ -54,7 +70,13 @@ const validateRange = (number) => number >= 100000 && number <= 999999;
  * @param {number} number The number to validate
  * @return {boolean} True if the number is valid
  */
-const validateNumber = (number) => validateRange(number) && validateAscendingDigits(number) && validateHasAdjacentDigits(number); // eslint-disable-line max-len
+const validateNumber = (number) => {
+    if (!validateRange(number)) {
+        return false;
+    }
+    const digits = getDigits(number);
+    return validateAscendingDigits(digits) && validateHasAdjacentDigits(digits);
+};
 
 module.exports = validateNumber;
 

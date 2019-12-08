@@ -40,14 +40,15 @@ const Image = class {
 
     /**
      * Merge the image data into a single layer
+     * @return {ImageLayer} The merged image layer
      */
     mergeData() {
         const totalDataLength = this.width * this.height;
         const data = Array(totalDataLength).fill(2);
         for (let i = 0; i < totalDataLength; i++) {
             for (let j = 0; j < this.layers.length; j++) {
-                let layer = this.layers[j];
-                let value = layer.data[i];
+                const layer = this.layers[j];
+                const value = layer.data[i];
                 if (value === 0 || value === 1) {
                     data[i] = value;
                     break;

@@ -19,11 +19,16 @@ image.loadData(width, height, data);
 let numberOfZeros;
 let numberOfOnesAndTwos;
 
+const countNumber = (data, number) => {
+    return data.reduce((current, val) => current + (val === number), 0);
+};
+
 image.layers.forEach((layer) => {
-    let layerNumberOfZeros = layer.data.reduce((current, val) => current + (val === 0), 0);
+    const layerNumberOfZeros = countNumber(layer.data, 0);
+
     if (numberOfZeros === undefined || layerNumberOfZeros < numberOfZeros) {
-        let layerNumberOfOnes = layer.data.reduce((current, val) => current + (val === 1), 0);
-        let layerNumberOfTwos = layer.data.reduce((current, val) => current + (val === 2), 0);
+        const layerNumberOfOnes = countNumber(layer.data, 1);
+        const layerNumberOfTwos = countNumber(layer.data, 2);
         numberOfOnesAndTwos = layerNumberOfOnes * layerNumberOfTwos;
         numberOfZeros = layerNumberOfZeros;
     }

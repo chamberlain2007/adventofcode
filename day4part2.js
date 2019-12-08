@@ -1,18 +1,4 @@
-/**
- * Get the digits of a number
- * @param {number} number The number to get the digits for
- * @return {number[]} The digits
- */
-const getDigits = (number) => {
-    const digits = [];
-    while (number > 0) {
-        const digit = number % 10;
-        digits.push(digit);
-        number -= digit;
-        number /= 10;
-    }
-    return digits.reverse();
-};
+const getDigits = require('./utils/get-digits');
 
 /**
  * Validates whether all of the digits are greater than the previous

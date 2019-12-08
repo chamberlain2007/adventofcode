@@ -11,6 +11,23 @@ const ParsedOpCode = class {
 };
 
 /**
+ * Represents the results of an instruction
+ * @param {boolean} shouldBreak Whether the computer should break execution
+ * @param {number} step The number of pointers to step
+ */
+const InstructionParsingResult = class {
+    /**
+     * Default constructor
+     * @param {boolean} shouldBreak Whether the computer should break execution
+     * @param {number} step The number of pointers to step
+     */
+    constructor(shouldBreak, step) {
+        this.shouldBreak = shouldBreak;
+        this.step = step;
+    }
+};
+
+/**
  * A class representing a computer.
  * @param {function(): number} stdin A function for retrieving a value from the input
  * @param {function(number): void} stdout A function for writing a value to the output
@@ -179,6 +196,7 @@ const Computer = class {
     /**
      * Parse the instruction in the instruction list at the given index
      * @param {number} index The instruction index
+     * @returns {InstructionParsingResult} The results of the parsing
      */
     parseInstruction(index) {
         const parsedOpCode = this.parseOpCode(this.activeInstructionList[index]);
@@ -186,12 +204,12 @@ const Computer = class {
         const [operation, skip] = instruction;
     
         if (!operation) {
-            return [true, 1];
+            return new InstructionParsingResult(true, 1);
         }
     
         const result = operation(index, parsedOpCode.immediateModeSettings);
     
-        return [false, skip === undefined ? result : skip];
+        return new InstructionParsingResult(false, skip === undefined ? result : skip);
     }
 
     /**
@@ -204,11 +222,11 @@ const Computer = class {
             if (!this.running) {
                 break;
             }
-            let [shouldBreak, step] = this.parseInstruction(this.index);
-            if (shouldBreak) {
+            let parseInstructionResult = this.parseInstruction(this.index);
+            if (parseInstructionResult.shouldBreak) {
                 break;
             }
-            this.index += step;
+            this.index += parseInstructionResult.step;
         }
     }
 

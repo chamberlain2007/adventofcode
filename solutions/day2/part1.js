@@ -20,7 +20,7 @@ const handleOperation = (array, index, operation) => {
  * @param {number} index The index to add
  * @return {function(number,number): number} The add function
  */
-const add = (array, index) => handleOperation(array, index, (operand1, operand2) => operand1 + operand2); // eslint-disable-line max-len
+const add = (array, index) => handleOperation(array, index, (operand1, operand2) => operand1 + operand2);
 
 /**
  * Generate the multiply function
@@ -28,7 +28,7 @@ const add = (array, index) => handleOperation(array, index, (operand1, operand2)
  * @param {number} index The index to multiply
  * @return {function(number,number): number} The multiply function
  */
-const multiply = (array, index) => handleOperation(array, index, (operand1, operand2) => operand1 * operand2); // eslint-disable-line max-len
+const multiply = (array, index) => handleOperation(array, index, (operand1, operand2) => operand1 * operand2);
 
 /**
  * Parse the opCode at a given index

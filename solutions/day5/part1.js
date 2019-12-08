@@ -40,7 +40,7 @@ const handleOperation = (array, index, immediateModeSettings, operation) => {
  * @param {number[]} immediateModeSettings The immediate mode settings
  * @return {function(number,number): number} The add function
  */
-const add = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1, operand2) => operand1 + operand2); // eslint-disable-line max-len
+const add = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1, operand2) => operand1 + operand2);
 
 /**
  * Generate the multiply function
@@ -49,7 +49,7 @@ const add = (array, index, immediateModeSettings) => handleOperation(array, inde
  * @param {number[]} immediateModeSettings The immediate mode settings
  * @return {function(number,number): number} The multiply function
  */
-const multiply = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1, operand2) => operand1 * operand2); // eslint-disable-line max-len
+const multiply = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1, operand2) => operand1 * operand2);
 
 /**
  * Generate the read function
@@ -58,7 +58,7 @@ const multiply = (array, index, immediateModeSettings) => handleOperation(array,
  * @param {number[]} immediateModeSettings The immediate mode settings
  * @return {function(): number} The read function
  */
-const read = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, () => { // eslint-disable-line max-len
+const read = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, () => {
     const input = readlineSync.questionInt('Enter a number: ');
     return input;
 });
@@ -70,7 +70,7 @@ const read = (array, index, immediateModeSettings) => handleOperation(array, ind
  * @param {number[]} immediateModeSettings The immediate mode settings
  * @return {function(number): void} The save function
  */
-const save = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1) => { // eslint-disable-line max-len
+const save = (array, index, immediateModeSettings) => handleOperation(array, index, immediateModeSettings, (operand1) => {
     console.log(operand1);
 });
 

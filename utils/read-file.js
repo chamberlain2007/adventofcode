@@ -23,8 +23,7 @@ const readFile = (filename) => {
 const readFileToArrayRaw = (filename, delimiter) => {
     const rawContents = readFile(filename);
 
-    return [...rawContents
-        .split(delimiter)];
+    return [...rawContents.split(delimiter)];
 };
 
 /**
@@ -45,5 +44,5 @@ const readFileToArray = (filename, delimiter) => {
 module.exports = {
     readFile: readFile,
     readFileToArrayRaw: readFileToArrayRaw,
-    readFileToArray: readFileToArray
+    readFileToArray: readFileToArray,
 };

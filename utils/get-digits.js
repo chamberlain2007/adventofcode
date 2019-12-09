@@ -7,7 +7,7 @@ const getDigits = (number) => {
     if (number < 0) {
         return getDigits(-number);
     }
-    
+
     if (number === 0) {
         return [0];
     }

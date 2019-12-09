@@ -1,5 +1,5 @@
 /**
- * Generate all of the permutations of a list of numbers
+ * Generate all of the permutations of a list of numbers using Heap's algorithm
  * @param {number[]} options The numbers to permute
  * @param {number=} k The current k value (used internally by Heap's algorithm)
  * @return {Array.<string[]>} The list of permutations

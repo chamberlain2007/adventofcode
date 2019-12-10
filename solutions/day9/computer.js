@@ -4,6 +4,8 @@ const POSITION_MODE = 0;
 const IMMEDIATE_MODE = 1;
 const RELATIVE_MODE = 2;
 
+const HALT_OPCODE = 99;
+
 /**
  * Represents an opCode with immediate mode settings
  * @param {number} opCode The opCode
@@ -269,7 +271,7 @@ const Computer = class {
         const instruction = this.operations[parsedOpCode.opCode] || [];
         const [operation, skip] = instruction;
 
-        if (!operation || parsedOpCode.opCode === 99) {
+        if (!operation || parsedOpCode.opCode === HALT_OPCODE) {
             return new InstructionParsingResult(true, 1);
         }
 

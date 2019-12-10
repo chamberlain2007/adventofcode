@@ -137,7 +137,7 @@ const Computer = class {
             if (result === undefined) {
                 return operation.length+1;
             }
-            const resultIndexModeSetting = modeSettings.slice(-1)[0];
+            const resultIndexModeSetting = modeSettings[modeSettings.length-1];
             let resultIndex = this.activeInstructionList[startIndex+operation.length+1];
             if (resultIndexModeSetting === RELATIVE_MODE) {
                 resultIndex += this.relativeBase;

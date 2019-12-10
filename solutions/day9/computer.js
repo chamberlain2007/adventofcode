@@ -76,6 +76,16 @@ const Computer = class {
     }
 
     /**
+     * Extends the instruction list to the number of elements, if needed
+     * @param {number} length The number of elements needed
+     */
+    extendMemoryIfNeeded(length) {
+        if (length >= this.activeInstructionList.length) {
+            this.activeInstructionList = resizeArray(this.activeInstructionList, length + 1, 0);
+        }
+    }
+
+    /**
      * Retrieves the operands for an instruction.
      * @param {number} startIndex The index of the instruction to retrieve the operands for
      * @param {number[]} modeSettings The immediate mode settings for the instruction
@@ -92,6 +102,7 @@ const Computer = class {
             switch (mode) {
                 case POSITION_MODE:
                     const location0 = this.activeInstructionList[startIndex+i+1];
+                    this.extendMemoryIfNeeded(location0);
                     operand = this.activeInstructionList[location0];
                     break;
                 case IMMEDIATE_MODE:
@@ -99,6 +110,7 @@ const Computer = class {
                     break;
                 case RELATIVE_MODE:
                     const location2 = this.relativeBase + this.activeInstructionList[startIndex+i+1];
+                    this.extendMemoryIfNeeded(location2);
                     operand = this.activeInstructionList[location2];
                     break;
             }
@@ -142,9 +154,7 @@ const Computer = class {
             if (resultIndexModeSetting === RELATIVE_MODE) {
                 resultIndex += this.relativeBase;
             }
-            if (resultIndex >= this.activeInstructionList.length) {
-                this.activeInstructionList = resizeArray(this.activeInstructionList, resultIndex + 1, 0);
-            }
+            this.extendMemoryIfNeeded(resultIndex);
             this.activeInstructionList[resultIndex] = result;
             return operation.length+1;
         };
@@ -177,9 +187,7 @@ const Computer = class {
                 resultIndex += this.relativeBase;
             }
             const result = this.stdin();
-            if (resultIndex >= this.activeInstructionList.length) {
-                this.activeInstructionList = resizeArray(this.activeInstructionList, resultIndex + 1, 0);
-            }
+            this.extendMemoryIfNeeded(resultIndex);
             this.activeInstructionList[resultIndex] = result;
             return 2;
         };

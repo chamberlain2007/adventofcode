@@ -1,3 +1,5 @@
+const readlineSync = require('readline-sync');
+
 const resizeArray = require('../../utils/resize-array');
 
 const POSITION_MODE = 0;
@@ -42,21 +44,21 @@ const InstructionParsingResult = class {
 
 /**
  * A class representing a computer.
+ * @param {number[]} instructionList A list of instructions
  * @param {function(): number} stdin A function for retrieving a value from the input
  * @param {function(number): void} stdout A function for writing a value to the output
- * @param {number[]} instructionList A list of instructions
  */
 const Computer = class {
     /**
      * Default constructor
+     * @param {number[]} instructionList A list of instructions
      * @param {function(): number} stdin A function for retrieving a value from the input
      * @param {function(number): void} stdout A function for writing a value to the output
-     * @param {number[]} instructionList A list of instructions
      */
-    constructor(stdin, stdout, instructionList) {
-        this.stdin = stdin;
-        this.stdout = stdout;
-        this.instructionList = instructionList;
+    constructor(instructionList, stdin, stdout) {
+        this.stdin = stdin || (() => readlineSync.questionInt('Enter a number: '));
+        this.stdout = stdout || ((val) => console.log(val));
+        this.instructionList = instructionList || [];
         this.activeInstructionList = [...instructionList];
         this.running = false;
         this.index = 0;

@@ -12,8 +12,6 @@ const Robot = class {
         const brainInput = readFileToArray('braininput.txt', ',');
 
         this.brain = new Computer(brainInput);
-
-        this.hull = [];
     }
 
     /**

@@ -7,4 +7,7 @@ const testAsteroidMap = new AsteroidMap();
 testAsteroidMap.parseMap(input);
 
 testAsteroidMap.setStation(31, 20);
-console.log(testAsteroidMap.vaporizeAll()[199]);
+const vaporizedAsteroids = testAsteroidMap.vaporizeAll();
+const twoHundredth = vaporizedAsteroids[199];
+
+console.log(twoHundredth.x * 100 + twoHundredth.y);

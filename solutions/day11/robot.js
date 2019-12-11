@@ -1,5 +1,15 @@
 const Computer = require('./computer');
 
+const BLACK = 0;
+const WHITE = 1;
+const UNPAINTED = 2;
+
+const TURN_LEFT = 0;
+const TURN_RIGHT = 1;
+
+const COLOR_WRITE_MODE = 0;
+const DIRECTION_WRITE_MODE = 1;
+
 /**
  * Represents an emergency hull painting robot
  */
@@ -29,23 +39,23 @@ const Robot = class {
 
         this.brain.stdin = () => {
             let val = memory[currentY][currentX];
-            if (val !== 1 && val !== 0) {
-                val = 0;
+            if (val !== BLACK && val !== WHITE) {
+                val = BLACK;
             }
             return val;
         };
 
-        let writeMode = 0;
+        let writeMode = COLOR_WRITE_MODE;
 
         this.brain.stdout = (val) => {
-            if (writeMode === 0) {
+            if (writeMode === COLOR_WRITE_MODE) {
                 memory[currentY][currentX] = val;
 
-                writeMode = 1;
-            } else if (writeMode === 1) {
-                if (val === 0) {
+                writeMode = DIRECTION_WRITE_MODE;
+            } else if (writeMode === DIRECTION_WRITE_MODE) {
+                if (val === TURN_LEFT) {
                     direction -= 90;
-                } else if (val === 1) {
+                } else if (val === TURN_RIGHT) {
                     direction += 90;
                 }
 
@@ -73,26 +83,26 @@ const Robot = class {
                 }
 
                 if (currentY < 0) {
-                    const newArray = new Array(memory[0].length).fill(2);
+                    const newArray = new Array(memory[0].length).fill(UNPAINTED);
                     memory.unshift(newArray);
                     currentY++;
                 } else if (currentY >= memory.length) {
-                    const newArray = new Array(memory[0].length).fill(2);
+                    const newArray = new Array(memory[0].length).fill(UNPAINTED);
                     memory.push(newArray);
                 }
 
                 if (currentX < 0) {
                     memory.forEach((array) => {
-                        array.unshift(2);
+                        array.unshift(UNPAINTED);
                     });
                     currentX++;
                 } else if (currentX >= memory[0].length) {
                     memory.forEach((array) => {
-                        array.push(2);
+                        array.push(UNPAINTED);
                     });
                 }
 
-                writeMode = 0;
+                writeMode = COLOR_WRITE_MODE;
             }
         };
 

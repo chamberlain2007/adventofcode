@@ -101,11 +101,10 @@ const AsteroidMap = class {
                 }
             });
 
-            asteroidsInOrder.push(candidateAsteroids[0]);
-
             if (candidateAsteroids.length === 1) {
                 this.currentAngle = minimumAngle;
                 asteroidsWithAngles = asteroidsWithAngles.filter((asteroidWithAngle) => !candidateAsteroids.includes(asteroidWithAngle[0]));
+                asteroidsInOrder.push(candidateAsteroids[0]);
             } else {
                 this.currentAngle = 0;
                 recalculateVisibility();

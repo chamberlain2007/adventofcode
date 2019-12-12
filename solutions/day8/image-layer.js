@@ -1,3 +1,5 @@
+const outputArray = require('../../utils/output-array');
+
 /**
  * Represents an image layer, simply an array of data
  * with a specific width and height
@@ -22,13 +24,8 @@ const ImageLayer = class {
      * Render the image layer to the screen
      */
     render() {
-        for (let i = 0; i < this.height; i++) {
-            for (let j = 0; j < this.width; j++) {
-                const value = this.data[i * this.width + j];
-                process.stdout.write(value === 1 ? '\u25A0' : ' ');
-            }
-            process.stdout.write('\n');
-        }
+        const data = [...Array(this.height).keys()].map((i) => this.data.slice(i * this.width, (i + 1) * this.width - 1));
+        outputArray(data, (value) => value === 1 ? '\u25A0' : ' ');
     }
 };
 

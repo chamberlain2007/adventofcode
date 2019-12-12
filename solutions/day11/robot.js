@@ -18,7 +18,7 @@ const Robot = class {
      * Default constructor
      */
     constructor() {
-        const readFileToArray = require('../../utils/read-file').readFileToArray;
+        const {readFileToArray} = require('../../utils/read-file');
         const brainInput = readFileToArray('braininput.txt', ',');
 
         this.brain = new Computer(brainInput);

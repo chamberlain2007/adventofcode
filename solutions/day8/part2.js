@@ -1,6 +1,6 @@
 const Image = require('./image');
 
-const readFileToArray = require('../../utils/read-file').readFileToArray;
+const {readFileToArray} = require('../../utils/read-file');
 const data = readFileToArray('day8input.txt', '');
 
 const width = 25;

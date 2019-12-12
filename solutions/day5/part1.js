@@ -144,7 +144,7 @@ const parseArray = (array) => {
 module.exports = parseArray;
 
 if (require.main === module) {
-    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const {readFileToArray} = require('../../utils/read-file');
     const input = readFileToArray('day5input.txt', ',');
     parseArray(input);
 }

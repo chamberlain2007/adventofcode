@@ -1,6 +1,6 @@
 const AsteroidMap = require('./asteroid-map');
 
-const readFile = require('../../utils/read-file').readFile;
+const {readFile} = require('../../utils/read-file');
 const input = readFile('day10input.txt', ',');
 
 const testAsteroidMap = new AsteroidMap();

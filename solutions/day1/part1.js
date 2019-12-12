@@ -8,7 +8,7 @@ const calculateFuel = (mass) => Math.floor(mass / 3.0) - 2;
 module.exports = calculateFuel;
 
 if (require.main === module) {
-    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const {readFileToArray} = require('../../utils/read-file');
     const input = readFileToArray('day1input.txt', '\n');
 
     const sum = input

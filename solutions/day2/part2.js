@@ -1,7 +1,7 @@
 const parseArray = require('./part1');
 
 if (require.main === module) {
-    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const {readFileToArray} = require('../../utils/read-file');
     const testArray = readFileToArray('day2input.txt', ',');
 
     const maxAttempt = 100;

@@ -72,7 +72,7 @@ const parseArray = (array) => {
 module.exports = parseArray;
 
 if (require.main === module) {
-    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const {readFileToArray} = require('../../utils/read-file');
     const testArray = readFileToArray('day2input.txt', ',');
 
     testArray[1] = 12;

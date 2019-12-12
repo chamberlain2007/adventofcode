@@ -24,7 +24,7 @@ const calculateFuel = (mass) => {
 module.exports = calculateFuel;
 
 if (require.main === module) {
-    const readFileToArray = require('../../utils/read-file').readFileToArray;
+    const {readFileToArray} = require('../../utils/read-file');
     const input = readFileToArray('day1input.txt', '\n');
 
     const sum = input

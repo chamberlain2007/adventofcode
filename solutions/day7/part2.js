@@ -67,7 +67,7 @@ const AmplifierCircuit = class {
     }
 };
 
-const readFileToArray = require('../../utils/read-file').readFileToArray;
+const {readFileToArray} = require('../../utils/read-file');
 const instructionList = readFileToArray('amplifiercircuitinput.txt', ',');
 
 let maxThrustOutput = 0;

@@ -18,7 +18,7 @@ const readFile = (filename) => {
  * Read a file to a list of raw strings
  * @param {string} filename The filename to read from
  * @param {string} delimiter The delimiter to split on
- * @return {number[]} The list of raw strings from the file
+ * @return {string[]} The list of raw strings from the file
  */
 const readFileToArrayRaw = (filename, delimiter) => {
     const rawContents = readFile(filename);

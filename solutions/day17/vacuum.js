@@ -1,5 +1,11 @@
 const Computer = require('./computer');
 
+const interleaveArray = require('../../utils/interleave-array');
+const arrayToCharCodes = require('../../utils/array-to-char-codes');
+
+/**
+ * Represents the vacuum for cleaning the ship
+ */
 const Vacuum = class {
     /**
      * Default constructor
@@ -11,14 +17,18 @@ const Vacuum = class {
         this.computer = new Computer(computerInput);
     }
 
+    /**
+     * Run the discovery step which discovers all of the structure
+     * that the vacuum will need to subsequently clean.
+     * @return {Array.<string[]>} The two dimensional array of the camera output
+     */
     runDiscovery() {
-        let memory = [[]];
+        const memory = [[]];
 
         this.computer.stdout = (value) => {
             if (value === 10) {
                 memory.push([]);
-            }
-            else {
+            } else {
                 memory[memory.length - 1].push(String.fromCharCode(value));
             }
         };
@@ -28,43 +38,50 @@ const Vacuum = class {
         return memory;
     }
 
+    /**
+     * Run the dust collection function which takes the commands
+     * and functions to run in order to navigate the structure to
+     * collect all the dust, and returns the amount of dust collected.
+     * @param {string[]} commands The commands to run
+     * @param {Array.<string[]>} functions The function definitions
+     * @return {number} The amount of dust collected
+     */
     runDustCollection(commands, functions) {
         this.computer.activeInstructionList[0] = 2;
 
-        let input = commands.flatMap((command) => [command.charCodeAt(0), 44]);
-        input.pop();
-        input.push(10)
-        
+        const input = [...interleaveArray(arrayToCharCodes(commands), ','.charCodeAt(0))];
+        input.push('\n'.charCodeAt(0));
+
         functions.forEach((functionList) => {
-            for (let i = 0; i < functionList.length; i++) {
-                const func = functionList[i].toString();
-                const first = func[0];
-                input.push(first.charCodeAt(0));
-                input.push(44);
-                func.slice(1).toString().split('').map((char) => char.charCodeAt(0)).forEach((num) => {
-                    input.push(num);
-                })
-                input.push(44);
-            }
-            input.pop();
-            input.push(10);
+            functionList.forEach((func, index) => {
+                const [letter, ...numbers] = func.toString().split('');
+
+                input.push(letter.charCodeAt(0));
+                input.push(','.charCodeAt(0));
+
+                numbers.map((number) => number.charCodeAt(0)).forEach((number) => {
+                    input.push(number);
+                });
+
+                if (index < functionList.length - 1) {
+                    input.push(','.charCodeAt(0));
+                }
+            });
+
+            input.push('\n'.charCodeAt(0));
         });
 
-        input.push(110);
-        input.push(10);
-        
-        console.log(input);
+        input.push('n'.charCodeAt(0));
+        input.push('\n'.charCodeAt(0));
 
         let inputIndex = 0;
 
         this.computer.stdin = () => {
-            const value = input[inputIndex];
-            process.stdout.write(String.fromCharCode(value));
-            inputIndex++;
+            const value = input[inputIndex++];
             return value;
         };
 
-        let returnValue = -1;
+        let returnValue;
 
         this.computer.stdout = (value) => {
             returnValue = value;
@@ -74,6 +91,6 @@ const Vacuum = class {
 
         return returnValue;
     }
-}
+};
 
 module.exports = Vacuum;

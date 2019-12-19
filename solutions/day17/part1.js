@@ -1,5 +1,7 @@
 const Vacuum = require('./vacuum');
 
+const isIntersection = require('./is-intersection');
+
 const vacuum = new Vacuum();
 
 const memory = vacuum.runDiscovery();
@@ -12,18 +14,7 @@ for (let rowIndex = 0; rowIndex < memory.length; rowIndex++) {
     for (let columnIndex = 0; columnIndex < row.length; columnIndex++) {
         const value = row[columnIndex];
 
-        const isIntersection =
-            rowIndex > 0 &&
-            rowIndex < memory.length - 1 &&
-            columnIndex > 0 &&
-            columnIndex < row.length - 1 &&
-            value === '#' &&
-            row[columnIndex - 1] === '#' &&
-            row[columnIndex + 1] === '#' &&
-            memory[rowIndex - 1][columnIndex] === '#' &&
-            memory[rowIndex + 1][columnIndex] === '#';
-
-        if (isIntersection) {
+        if (isIntersection(memory, rowIndex, columnIndex)) {
             intersections.push([rowIndex, columnIndex]);
 
             process.stdout.write('O');

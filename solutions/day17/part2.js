@@ -1,19 +1,18 @@
 const Vacuum = require('./vacuum');
 
-require('colors');
-
 const isIntersection = require('./is-intersection');
 const getValidPositions = require('./get-valid-positions');
 const getPathAndDirection = require('./get-path-and-direction');
 const compressPath = require('./compress-path');
 const groupPath = require('./group-path');
-const attemptPatternMatch = require('./attempt-pattern-match');
+const getPotentialPatterns = require('./get-potential-patterns');
+const getPatterns = require('./get-patterns');
 
 const {RIGHT} = require('./constants');
 
-const vacuum = new Vacuum();
+const discoveryVacuum = new Vacuum();
 
-const memory = vacuum.runDiscovery();
+const memory = discoveryVacuum.runDiscovery();
 
 const [[ , startRowIndex, startColumnIndex ]] = memory.flatMap((row, rowIndex) => row.map((value, columnIndex) => [value, rowIndex, columnIndex]).filter((x) => x[0] === '^' || x[0] === 'V' || x[0] === '<' || x[0] === '>'));
 
@@ -112,22 +111,12 @@ const compressedPath = compressPath(path);
 
 const groupedPath = groupPath(compressedPath);
 
-// TODO: Figure out how to get these values. Suffix tree?
-const pattern1 = ['R8', 'L12', 'R8'];
-const pattern2 = ['L10', 'L10', 'R8'];
-const pattern3 = ['L12', 'L12', 'L10', 'R10'];
+const potentialPatterns = getPotentialPatterns(groupedPath);
 
-const patterns = [pattern1, pattern2, pattern3];
-
-const [matched, result] = attemptPatternMatch(patterns, groupedPath);
-
-if (!matched) {
-    console.log('Pattern match failed');
-    return;
-}
+const [, foundPatterns, foundCommands] = getPatterns(potentialPatterns, groupedPath);
 
 const dustVacuum = new Vacuum();
 
-const dustCollected = dustVacuum.runDustCollection(result, patterns);
+const dustCollected = dustVacuum.runDustCollection(foundCommands, foundPatterns);
 
 console.log(dustCollected);

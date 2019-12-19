@@ -1,3 +1,9 @@
+/**
+ * Attempt to find a pattern match in the path, if possible
+ * @param {Array.<string[]>} patterns The patterns
+ * @param {string[]} groupedPath The path
+ * @return {any[]} Whether the match was found and the resulting pattern sequence
+ */
 const attemptPatternMatch = (patterns, groupedPath) => {
     const arrayStartsWith = (array1, array2) => {
         for (let i = 0; i < array2.length; i++) {
@@ -6,7 +12,7 @@ const attemptPatternMatch = (patterns, groupedPath) => {
             }
         }
         return true;
-    }
+    };
 
     const result = [];
     let current = groupedPath;
@@ -29,6 +35,6 @@ const attemptPatternMatch = (patterns, groupedPath) => {
     }
 
     return [!current.length, result];
-}
+};
 
 module.exports = attemptPatternMatch;

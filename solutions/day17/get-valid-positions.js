@@ -1,3 +1,10 @@
+/**
+ * Get the valid relative positions from the current position
+ * @param {Array.<string[]>} memory The vacuum memory
+ * @param {number} rowIndex The current row index
+ * @param {number} columnIndex The current row index
+ * @return {Array.<number[]>} An array of relative positions which are valid movements
+ */
 const getValidPositions = (memory, rowIndex, columnIndex) => {
     const validPositions = [];
     if (rowIndex > 0 && memory[rowIndex - 1][columnIndex] === '#') {
